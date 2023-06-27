@@ -5,7 +5,8 @@ const toDoShemma = mongoose.Schema({
     title       : {type: String},
     content     : {type: String},
     commentary  : {type: String, default: null},
-    createdAt   : {type: Date}
+    createdAt   : {type: Date},
+    updatedAt   : {type: Date, default: null}
 })
 
-module.exports = mongoose.model('to-dos', toDoShemma);
+export default mongoose.model('to-dos', toDoShemma);

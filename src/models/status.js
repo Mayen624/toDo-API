@@ -5,4 +5,4 @@ const statusShemma = mongoose.Schema({
     createAt    : {type: String}
 });
 
-module.exports = mongoose.model('statuses', statusShemma);
+export default mongoose.model('statuses', statusShemma);

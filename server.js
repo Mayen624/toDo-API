@@ -1,6 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
 import {env} from './env.js';
+import cors from 'cors';
+import helmet from "helmet";
+import BodyParser from 'body-parser';
 import { connection } from './src/db/database.js';
 
 
@@ -8,7 +11,10 @@ const app = express();
 const port = env.PORT || 4000;
 
 // Middleware
+app.use(cors());
+app.use(helmet());
 app.use(morgan('dev'));
+app.use(BodyParser.urlencoded({extended: false}));
 
 //Routes
 
