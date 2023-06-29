@@ -18,11 +18,9 @@ app.use(BodyParser.urlencoded({extended: false}));
 
 //Routes
 
-import toDoRouter from './src/routes/toDo.routes.js';
-import statusRouter from './src/routes/status.routes.js';
+import dataRouter from './src/routes/data.routes.js';
 
-app.use('/tasks', toDoRouter);
-app.use('/status', statusRouter);
+app.use('/v1', dataRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}.`);
