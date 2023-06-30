@@ -89,6 +89,11 @@ const deleteStatus = async (req, res) => {
     }
 
     const status = await statusShemmma.findById({_id: req.params.id});
+
+    if(!status){
+        return res.status(200).json({error: 'Not found!'});
+    }
+
     await statusShemmma.deleteOne({_id: req.params.id});
     return res.status(200).json({result: status, msg: `${status.status} status successfully deleted.`})
 }

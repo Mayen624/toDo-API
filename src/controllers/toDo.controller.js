@@ -9,11 +9,10 @@ const addTask = async (req, res) => {
         //Validations from  express-validation
         const validations = [
             body('title').notEmpty().trim().withMessage('Title required.')
-                .isLength({ min: 5 }).withMessage('Length title must be grater than 5 characters.'),
+                .isLength({ min: 2 }).withMessage('Length title must be grater than 5 characters.'),
             body('content').notEmpty().withMessage('Content required.')
-                .isLength({ min: 10 }).withMessage('Length title must be grater than 10 characters.'),
+                .isLength({ min: 8 }).withMessage('Length content must be grater than 8 characters.'),
             body('status').notEmpty().withMessage('Status required.')
-                .isLength({ min: 5 }).withMessage('Length title must be grater than 5 characters.')
                 .isMongoId().withMessage('Incorrect ObjectId format, status must be an mongo ObjectId.'),
             body('commentary').trim()
         ];
@@ -95,7 +94,27 @@ const editTask = async (req, res) => {
 }
 
 const deleteTask = async (req, res) => {
-    
+
+    const validations = [
+        param('id').notEmpty().trim().withMessage('id param required.')
+            .isMongoId().withMessage('incorrect ObjectId format, id must be an mongo ObjectId')
+    ];
+
+    await Promise.all(validations.map(validations => validations.run(req)));
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    const toDelete = await toDoShemma.findById(req.params.id);
+
+    if(!toDelete){
+        return res.status(404).json({error: 'Not found!'})
+    }
+    await toDoShemma.deleteOne({ _id: req.params.id });
+    return res.status(200).json({ data: toDelete, msg: `${dataDeleted.title} task successfuly deleted.` })
 }
 
 
