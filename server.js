@@ -20,7 +20,7 @@ app.use(BodyParser.urlencoded({extended: false}));
 
 import dataRouter from './src/routes/data.routes.js';
 
-app.use('/v1', dataRouter);
+app.use('/api/v1', dataRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}.`);

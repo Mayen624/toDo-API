@@ -88,7 +88,7 @@ const editTask = async (req, res) => {
         return res.status(400).json({ error: "The status does not match with any existing status." })
     }
 
-    await toDoShemma.updateOne({ _id: req.params.id }, { title: req.body.title, id_status: req.body.id_status, commentary: req.body.commentary, updatedAt: new Date() });
+    await toDoShemma.updateOne({ _id: req.params.id }, { title: req.body.title, content: req.body.content ,id_status: req.body.id_status, commentary: req.body.commentary, updatedAt: new Date() });
     const updatedData = await toDoShemma.findById(req.params.id);
     return res.status(200).json({ result: updatedData, msg: 'task successfully updated' })
 }
@@ -111,10 +111,10 @@ const deleteTask = async (req, res) => {
     const toDelete = await toDoShemma.findById(req.params.id);
 
     if(!toDelete){
-        return res.status(404).json({error: 'Not found!'})
+        return res.status(404).json({error: 'Task not found!'})
     }
     await toDoShemma.deleteOne({ _id: req.params.id });
-    return res.status(200).json({ data: toDelete, msg: `${dataDeleted.title} task successfuly deleted.` })
+    return res.status(200).json({ data: toDelete, msg: `${toDelete.title} task successfuly deleted.` })
 }
 
 
