@@ -8,7 +8,7 @@ import { connection } from './src/db/database.js';
 
 
 const app = express();
-const port = env.PORT || 4000;
+const port = env.PORT || 5000;
 
 // Middleware
 app.use(cors());
